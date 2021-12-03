@@ -1,9 +1,8 @@
-import React, {useContext, useCallback, useEffect} from 'react';
+import React, {useContext, useCallback } from 'react';
 import useListenFirebaseData from '../../../hooks/useListenFirebaseData';
 import AuthContext from '../../../contexts/auth/authContext';
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router';
-import { limitToLast } from '@firebase/database';
 import { getData } from '../../../database/readData';
 
 export default function ChatsList() {
@@ -19,7 +18,7 @@ export default function ChatsList() {
   //   filterCallback: useCallback(({chatBetween, id}) => chatBetween.includes(user.uid), [user]),
   // });
   const getLastMessageFromChat = useCallback(async (chatID) => {
-    const data = await getData(`chatRoom/${chatID}/messages`, limitToLast, 1);
+    const data = await getData(`chatRoom/${chatID}/messages`, {limitToLast: 1});
     console.log(data);
     return '123';
   }, []);

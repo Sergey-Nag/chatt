@@ -1,5 +1,6 @@
 import { getDatabase, ref, child, get, onValue, off, orderByKey, query } from "firebase/database";
 import firebaseApp from "../firebaseApp";
+import { getRef } from "./listMethods";
 
 export async function getUsersList() {
   try {
@@ -27,10 +28,10 @@ export function listenData(path, callback, order = null, orderValue = null) {
   return () => {off(topDataRef)}
 }
 
-export async function getData(path, order = null, orderValue = null) {
+export async function getData(path, meta) {
   try {
     const dbRef = ref(getDatabase(firebaseApp));
-    const snapshot = await get(child(dbRef, path), orderByKey(), orderValue ? order(orderValue) : false);
+    const snapshot = await get(child(dbRef, path), ...getRef(meta));
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
@@ -39,7 +40,6 @@ export async function getData(path, order = null, orderValue = null) {
   }catch (e) {
     console.log(e);
   }
-  
 }
 
 export async function getUserById(id) {
