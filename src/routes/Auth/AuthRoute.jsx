@@ -5,17 +5,6 @@ import { useNavigate } from 'react-router';
 import { setCredentials, setUser } from '../../contexts/auth/authAction';
 import { writeUserData } from '../../database/writeData';
 
-    // }).catch((error) => {
-    //   // Handle Errors here.
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   const email = error.email;
-    //   // The AuthCredential type that was used.
-    //   const credential = GoogleAuthProvider.credentialFromError(error);
-    //   console.log(errorCode, errorMessage, email, credential);
-    // })
-
 export default function AuthRoute() {
   const [, dispatch] = useContext(AuthContext);
   const navigate = useNavigate();
@@ -26,7 +15,8 @@ export default function AuthRoute() {
     try {
       const authenticateResult = await signInWithPopup(auth, provider);
       const credential = GoogleAuthProvider.credentialFromResult(authenticateResult);
-      const user = authenticateResult.user;
+      const user = {...authenticateResult.user, ...{nickname: authenticateResult.user.email.split('@')[0].replace(/\./g, '')}};
+
       dispatch(setUser(user));
       dispatch(setCredentials(credential));
       writeUserData(user);

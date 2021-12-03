@@ -2,13 +2,15 @@ import { getDatabase, ref, set, push, runTransaction } from "firebase/database";
 import firebaseApp from "../firebaseApp";
 
 
-export function writeUserData({uid, displayName, email, photoURL, metadata}) {
+export function writeUserData({uid, nickname, displayName, email, photoURL, metadata}) {
   const db = getDatabase(firebaseApp);
 
-  set(ref(db, 'users/' + uid), {
+
+  set(ref(db, 'users/' + nickname), {
     username: displayName,
+    id: uid,
     email: email,
-    profile_picture : photoURL,
+    profile_picture: photoURL,
     lastLogin: metadata.lastLoginAt,
   });
 }

@@ -35,7 +35,7 @@ export async function getData(path, meta) {
     if (snapshot.exists()) {
       return snapshot.val();
     } else {
-      return new Error('No data in "users" db');
+      return null;
     }
   }catch (e) {
     console.log(e);

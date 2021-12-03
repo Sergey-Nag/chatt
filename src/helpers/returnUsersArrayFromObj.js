@@ -1,6 +1,6 @@
 export default function returnUsersArrayFromObj(obj) {
   return Object.keys(obj).reduce((acc, key) => {
-    obj[key].id = key;
+    obj[key].key = key;
     acc.push(obj[key]);
     return acc;
   }, []).sort((a, b) => {
