@@ -1,5 +1,4 @@
 import React from 'react';
-import time from '../../../../helpers/time';
 import styles from './Message.module.css';
 import cx from 'classnames';
 
@@ -15,7 +14,7 @@ export default function Message({ data, isUser, setLastMsg }) {
           </div>
           <div className={cx('col', (isUser ? 'text-end' : 'text-start'))}>
             <p>{data.text}</p>
-            <span className={cx('text-secondary', styles.time)} >{time(data.sendAt).getTime()}</span>
+            <span className={cx('text-secondary', styles.time)} >{}</span>
           </div>
         </div>
       </div>

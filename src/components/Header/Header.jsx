@@ -1,12 +1,15 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useMemo } from 'react'
-import { logOut } from '../../contexts/auth/authAction';
-import AuthContext from '../../contexts/auth/authContext';
-import ChatContext from '../../contexts/chat/chatContext';
+import React, { useContext, useMemo, useState } from 'react'
+import { logOut } from '../../context/auth/authActions';
+import AuthContext from '../../context/auth/authContext';
+// import { logOut } from '../../contexts/auth/authAction';
+// import AuthContext from '../../contexts/auth/authContext';
+// import ChatContext from '../../contexts/chat/chatContext';
 
 export default function Header({isAside, setAside}) {
   const [{user}, dispatch] = useContext(AuthContext);
-  const [{ companion  }] = useContext(ChatContext);
+  // const [{ companion  }] = useContext(ChatContext);
+  const [companion] = useState(false);
   const [photoURL, displayName] = useMemo(() => [user.photoURL, user.displayName], [user]);
 
   return (

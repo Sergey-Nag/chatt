@@ -1,34 +1,33 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth'
-import AuthContext from '../../contexts/auth/authContext';
-import { useNavigate } from 'react-router';
-import { setCredentials, setUser } from '../../contexts/auth/authAction';
-import { writeUserData } from '../../database/writeData';
+import AuthContext from '../../context/auth/authContext';
+import { authUser } from '../../context/auth/authActions';
+import { getUserObject } from '../../helpers/authData';
+import { Navigate, useNavigate } from 'react-router';
+// import { setCredentials, setUser } from '../../contexts/auth/authAction';
+// import { writeUserData } from '../../database/writeData';
 
 export default function AuthRoute() {
-  const [, dispatch] = useContext(AuthContext);
-  const navigate = useNavigate();
+  const [auth, dispatch] = useContext(AuthContext);
 
-  const authorize = async () => {
+  const authorize = useCallback(async () => {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     try {
       const authenticateResult = await signInWithPopup(auth, provider);
-      const credential = GoogleAuthProvider.credentialFromResult(authenticateResult);
-      const user = {...authenticateResult.user, ...{nickname: authenticateResult.user.email.split('@')[0].replace(/\./g, '')}};
+      // const credential = GoogleAuthProvider.credentialFromResult(authenticateResult);
 
-      dispatch(setUser(user));
-      dispatch(setCredentials(credential));
-      writeUserData(user);
-      navigate('/chat');
+      dispatch(authUser(getUserObject(authenticateResult.user)))
     } catch (e) {
       console.log(e);
     }
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     document.title = 'Auth';
   }, []);
+
+  if (auth.authState === 2) return <Navigate to={'/chat'} />
 
   return (
     <div

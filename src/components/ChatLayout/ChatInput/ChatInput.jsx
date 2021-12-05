@@ -1,36 +1,34 @@
 import React, { useCallback, useContext, useRef, useState } from 'react'
 import { useParams } from 'react-router';
-import AuthContext from '../../../contexts/auth/authContext';
 import { writeMessage } from '../../../database/writeData';
 
 export default function ChatInput() {
   const [messageText, setMessageText] = useState('');
-  const [{ user }] = useContext(AuthContext);
   const inputRef = useRef();
   const { chatId } = useParams();
 
-  const sendMessage = useCallback((text) => {
-    if (!user || text === '') return;
-    const messageData = {
-      text,
-      sendAt: Date.now(),
-      senderName: user.displayName,
-      senderId: user.uid,
-    }
-    writeMessage(chatId, messageData);
-  }, [chatId, user]);
+  // const sendMessage = useCallback((text) => {
+  //   if (!user || text === '') return;
+  //   const messageData = {
+  //     text,
+  //     sendAt: Date.now(),
+  //     senderName: user.displayName,
+  //     senderId: user.uid,
+  //   }
+  //   writeMessage(chatId, messageData);
+  // }, [chatId, user]);
 
-  const onSendHandler = useCallback(() => {
-    sendMessage(messageText);
-    setMessageText('');
-  }, [messageText, sendMessage]);
+  // const onSendHandler = useCallback(() => {
+  //   sendMessage(messageText);
+  //   setMessageText('');
+  // }, [messageText, sendMessage]);
   
-  const onInputSendHandler = useCallback(({keyCode, ctrlKey}) => {
-    if (ctrlKey && keyCode === 13) {
-      onSendHandler();
-      inputRef.current.focus();
-    }
-  }, [onSendHandler]);
+  // const onInputSendHandler = useCallback(({keyCode, ctrlKey}) => {
+  //   if (ctrlKey && keyCode === 13) {
+  //     onSendHandler();
+  //     inputRef.current.focus();
+  //   }
+  // }, [onSendHandler]);
 
   return (
     <div className="p-3">
