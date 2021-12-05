@@ -1,24 +1,28 @@
-import React, { useContext, useState } from 'react'
-import { useEffect } from 'react/cjs/react.development';
-import AuthContext from '../../../contexts/auth/authContext';
-import ChatContext from '../../../contexts/chat/chatContext';
-import Message from './Message/Message'
+import React, { useContext, useState, useEffect } from 'react';
+import AuthContext from 'context/auth/authContext';
+import returnArrayFromObj from 'helpers/returnArrayFromObj';
+import Message from 'models/Message';
+import MessageBox from './MessageBox/MessageBox';
 
-export default function ChatMessages() {
-  const [{ messages }] = useContext(ChatContext);
-  const [{ user }] = useContext(AuthContext);
-  const [lastMsg, setLastMsg] = useState(null);
-
+export default function ChatMessages({messages}) {
+  const [{user}] = useContext(AuthContext);
+  const [messagesArr, setMessagesArr] = useState([]);
   useEffect(() => {
-    lastMsg && lastMsg.scrollIntoView({behavior: 'smooth'});
-  }, [lastMsg]);
+    if (!messages) return;
+    setMessagesArr(returnArrayFromObj(messages).map((msg) => new Message(msg)));
+  }, [messages]);
+  console.log(messagesArr);
   return (
     <div className="flex-grow-1 overflow-auto bg-light" style={{height: '74vh'}}>
-      {messages && messages.map((msg) => msg && <Message
-        key={msg.sendAt}
-        data={msg}
-        isUser={msg.senderId === user.uid}
-        setLastMsg={setLastMsg} />
+      {messagesArr && messagesArr.map((/** @type {Message} */msg) => 
+        <MessageBox
+          key={msg.timestamp}
+          markup={msg.textMarkup}
+          from={msg.from}
+          isUser={msg.from === user.nickname}
+          time={msg.timestamp}
+          // setLastMsg={setLastMsg}
+          />
       )}
       {/* <Message isUser/> */}
     </div>

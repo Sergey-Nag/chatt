@@ -1,0 +1,19 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link .row {
+  flex-wrap: nowrap;
+}
+
+.time {
+  font-size: .9em;
+  color: var(--bs-gray-500);
+}
+
+.name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

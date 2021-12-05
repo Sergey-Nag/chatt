@@ -1,32 +1,31 @@
 import React, { useCallback, useContext } from 'react';
 import useListenFirebaseData from '../../../hooks/useListenFirebaseData';
-import { NavLink } from 'react-router-dom';
-import { useParams } from 'react-router';
-import styles from './UsersList.module.css';
+import AuthContext from '../../../context/auth/authContext';
+import ListCard from '../ListCard/ListCard';
 
 export default function UsersList() {
-  const params = useParams();
-  
-  // const [users] = useListenFirebaseData('users', {
-  //   filterCallback: useCallback((u) => u.id !== user.uid, [user])
-  // });
-  // ToDo: show chats list with links to specific chat (and/or users list with create chat link if chat doesn't exist)
+  const [{user}] = useContext(AuthContext);
+  const [users] = useListenFirebaseData('users', {
+    filterCallback: useCallback(({uid, chats}) => {
+      return (
+        (uid !== user.uid && !chats ) ||
+        (chats && user.chats && !chats?.some(nick => user.chats.includes(nick)))
+      )
+    }, [user])
+  });
+
   return (
-    <div className="bg-white h-100 py-3">
-      {/* {users && users.map((u) => (
-        <NavLink key={u.id} to={'/chat/new?id='+u.id} className={styles.link}>
-          <div className="card">
-            <div className="row">
-              <div className="col-3">
-                <img src={u.profile_picture} className="w-100" alt="" />
-              </div>
-              <div className="col">
-                <span>{u.username}</span>
-              </div>
-            </div>
-          </div>
-        </NavLink>
-      ))} */}
+    <div className="bg-white py-3">
+      <span className="text-muted">Users: {users?.length ?? 0}</span>
+      {users && users.length > 0 && users.map(({uid, nickname, displayName, photoURL, lastLoginAt}) => (
+        <ListCard 
+          key={uid}
+          text={displayName}
+          time={+lastLoginAt}
+          photo={photoURL}
+          link={`new?user=${nickname}`}
+          />
+      ))}
     </div>
   );
 }

@@ -1,19 +1,19 @@
-// import React, { useContext, useEffect, useState } from 'react';
-// import AuthContext from '../../../contexts/auth/authContext';
-// import { useParams } from 'react-router';
+import React, { useContext, useCallback } from "react";
+import AuthContext from "context/auth/authContext";
+import useListenFirebaseData from "hooks/useListenFirebaseData";
+import ListCard from "../ListCard/ListCard";
+import ChatCard from "./ChatCard/ChatCard";
 
 export default function ChatsList() {
   // const params = useParams();
-  // const [{ user }] = useContext(AuthContext);
-  // const [chats, setChats] = useState([]);
-  // useEffect(() => {
-  //   if (user.chats) {
-      
-  //   }
-  // }, [user]);
+  const [{ user }] = useContext(AuthContext);
+  
   return (
-    <div className="bg-white overflow-auto h-100 py-3">
-     
+    <div className="bg-white h-100 py-3">
+      <span className="text-muted">Chats: {user.chats?.length ?? 0}</span>
+      {user.chats && user.chats.map((chatId) => (
+        <ChatCard key={chatId} chatId={chatId} nickname={user.nickname} />
+      ))}
     </div>
   )
 }

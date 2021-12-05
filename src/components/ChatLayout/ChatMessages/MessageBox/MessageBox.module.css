@@ -1,0 +1,30 @@
+.time {
+  opacity: .5;
+  font-size: .8em;
+  text-align: right;
+}
+
+.system {
+  position: relative;
+  width: 100%;
+  color: var(--bs-gray-500);
+  background: rgba(var(--bs-light-rgb), 1);
+}
+
+.system::before,
+.system::after {
+  content: '';
+  display: inline-block;
+  position: inherit;
+  margin: auto 10px;
+  width: 20%;
+  height: 1px;
+  background: var(--bs-gray-500);
+  align-self: center;
+  bottom: 15%;
+}
+
+.message {
+  text-align: left;
+  white-space: pre;
+}

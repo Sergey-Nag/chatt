@@ -1,17 +1,21 @@
 import { useState, useEffect} from "react";
 import DB from "../helpers/Database";
+import returnArrayFromObj from "../helpers/returnArrayFromObj";
 
-const useListenFirebaseData = (queryPath, {filterCallback = null, order = null, orderValue = null, startListen = false} = {}) => {
+const useListenFirebaseData = (queryPath, {filterCallback = null, startListen = null, limit = null, saveKey = false} = {}) => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    if (!startListen) return;
+    if (startListen !== null && !startListen) return;
     const unsubscribe = DB.listenData(queryPath, (dataObj) => {
-      setData(dataObj);
-    }, order, orderValue);
+      if (dataObj === null) return;
+      let data = dataObj;
+      if (filterCallback) data = returnArrayFromObj(data, saveKey).filter(filterCallback);
+      setData(data);
+    }, {limit});
 
     return () => unsubscribe();
-  }, [queryPath, filterCallback, order, orderValue, startListen]);
+  }, [queryPath, filterCallback, startListen, limit, saveKey]);
 
   return [data];
 }

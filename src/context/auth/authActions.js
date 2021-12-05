@@ -2,7 +2,7 @@ import DB from "../../helpers/Database";
 
 const authUser = (userObj) => {
   
-  DB.writeData(`users/${userObj.nickname}`, userObj);
+  DB.updateData(`users/${userObj.nickname}`, (dataObj) => ({...dataObj, ...userObj}));
   localStorage.setItem('user', JSON.stringify(userObj));
 
   return {
@@ -11,7 +11,7 @@ const authUser = (userObj) => {
   }
 }
 
-const setUser = (userObj) => ({
+const setUser = (/** @type {any} */ userObj) => ({
   type: 'user/set',
   payload: userObj,
 });

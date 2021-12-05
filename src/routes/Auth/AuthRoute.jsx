@@ -14,10 +14,9 @@ export default function AuthRoute() {
     const auth = getAuth();
     const provider = new GoogleAuthProvider();
     try {
-      const authenticateResult = await signInWithPopup(auth, provider);
+      const authResult = await signInWithPopup(auth, provider);
       // const credential = GoogleAuthProvider.credentialFromResult(authenticateResult);
-
-      dispatch(authUser(getUserObject(authenticateResult.user)))
+      dispatch(authUser(getUserObject(authResult.user)))
     } catch (e) {
       console.log(e);
     }

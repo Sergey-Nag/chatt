@@ -1,27 +1,23 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
-import { useParams } from 'react-router';
-import { writeMessage } from '../../../database/writeData';
+import AuthContext from 'context/auth/authContext';
+import DB from 'helpers/Database';
+import Message from 'models/Message';
+import React, { useState, useCallback, useContext } from 'react';
 
-export default function ChatInput() {
+export default function ChatInput({chatId}) {
+  const [{user}] = useContext(AuthContext);
   const [messageText, setMessageText] = useState('');
-  const inputRef = useRef();
-  const { chatId } = useParams();
+  const sendMessage = useCallback((text) => {
+    if (!user || text === '') return;
+    const messageData = new Message(user.nickname, text);
+    console.log(messageData);
+    DB.pushMessageToChat(chatId, messageData);
+    // writeMessage(chatId, messageData);
+  }, [chatId, user]);
 
-  // const sendMessage = useCallback((text) => {
-  //   if (!user || text === '') return;
-  //   const messageData = {
-  //     text,
-  //     sendAt: Date.now(),
-  //     senderName: user.displayName,
-  //     senderId: user.uid,
-  //   }
-  //   writeMessage(chatId, messageData);
-  // }, [chatId, user]);
-
-  // const onSendHandler = useCallback(() => {
-  //   sendMessage(messageText);
-  //   setMessageText('');
-  // }, [messageText, sendMessage]);
+  const onSendHandler = useCallback(() => {
+    sendMessage(messageText);
+    setMessageText('');
+  }, [messageText, sendMessage]);
   
   // const onInputSendHandler = useCallback(({keyCode, ctrlKey}) => {
   //   if (ctrlKey && keyCode === 13) {
@@ -34,16 +30,16 @@ export default function ChatInput() {
     <div className="p-3">
       <div className="form-floating">
         <textarea
-          ref={inputRef}
+          // ref={inputRef}
           className="form-control"
           placeholder="Type here"
           id="message"
           style={{height: '100px', resize: 'none'}}
           value={messageText}
           onChange={({target}) => setMessageText(target.value)}
-          onKeyUp={onInputSendHandler}
+          // onKeyUp={onInputSendHandler}
           ></textarea>
-        <label htmlFor="message">Message</label>
+        <label htmlFor="message">Your message</label>
       </div>
       <div className="form-group">
         <div className="row pt-3">
