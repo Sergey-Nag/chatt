@@ -23,8 +23,8 @@ function App() {
 
   useEffect(() => {
     if (user) dispatch(setUser(user));
-    console.log(auth);
   }, [user]);
+
   return (
     <div className="App">
       <AuthContext.Provider value={[auth, dispatch, asyncDispatch]}>

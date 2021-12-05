@@ -16,14 +16,14 @@ export default class Message {
 
       this.from = from.from;
       this.text = from.text;
-      this.textMarkup = from.textMarkup;
+      this.textMarkup = from.textMarkup.trim();
       this.timestamp = from.timestamp ?? Date.now();
     } else {
       text = textMarkup ? text.trim() : textMarkup = text.trim();
 
       this.from = from;
       this.text = text;
-      this.textMarkup = textMarkup;
+      this.textMarkup = textMarkup.trim();
       this.timestamp = timestamp ?? Date.now();
     }
   }

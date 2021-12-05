@@ -17,7 +17,7 @@ export default function MessageBox({ markup, from, isUser, time, setLastMsg }) {
         <div className="card px-3 p-2" style={{width: 'auto'}}>
           <div className="row">
             <div className={cx('col', (isUser ? 'text-end' : 'text-start'))}>
-              <p className={styles.message}>{markup}</p>
+              <p className={styles.message} dangerouslySetInnerHTML={{__html: markup}}></p>
               <span className={cx('text-secondary', styles.time)} >{(Time)}</span>
             </div>
           </div>
