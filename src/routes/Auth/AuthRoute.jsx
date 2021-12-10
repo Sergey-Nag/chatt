@@ -1,11 +1,9 @@
 import React, { useCallback, useContext, useEffect } from 'react'
+import { Navigate } from 'react-router';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from '@firebase/auth'
 import AuthContext from '../../context/auth/authContext';
 import { authUser } from '../../context/auth/authActions';
 import { getUserObject } from '../../helpers/authData';
-import { Navigate, useNavigate } from 'react-router';
-// import { setCredentials, setUser } from '../../contexts/auth/authAction';
-// import { writeUserData } from '../../database/writeData';
 
 export default function AuthRoute() {
   const [auth, dispatch] = useContext(AuthContext);
