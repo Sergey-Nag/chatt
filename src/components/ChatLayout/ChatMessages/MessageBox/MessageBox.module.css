@@ -27,4 +27,19 @@
 .message {
   text-align: left;
   white-space: pre;
+  margin-bottom: 0;
+}
+
+.messageBox {
+  border-radius: 1em;
+  width: auto;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+.messageBox.right {
+  border-top-right-radius: 0.1em;
+}
+
+.messageBox.left {
+  border-top-left-radius: 0.1em;
 }

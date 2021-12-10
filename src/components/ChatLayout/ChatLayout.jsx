@@ -2,6 +2,7 @@ import React from 'react';
 import useListenFirebaseData from 'hooks/useListenFirebaseData';
 import { useParams } from 'react-router';
 import ChatInput from './ChatInput/ChatInput';
+import styles from './ChatLayout.module.css';
 import ChatMessages from './ChatMessages/ChatMessages';
 
 export default function ChatLayout() {
@@ -11,7 +12,7 @@ export default function ChatLayout() {
   });
   
   return (
-    <div className="d-flex flex-column h-100">
+    <div className={styles.wrapp}>
       <ChatMessages messages={chat} />
       <ChatInput chatId={chatId} />
     </div>

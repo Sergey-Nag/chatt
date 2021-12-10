@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import styles from './FormatTextEditor.module.css';
 import cx from 'classnames';
 
-export default function FormatTextEditor({label, onChange, isClear}) {
+export default function FormatTextEditor({label, onChange, isClear, onEnterHotKey}) {
   const divRef = useRef(null);
-
-  const keyUpHandler = useCallback((e) => {
-    const {textContent, innerHTML} = e.target;
+  const keyUpHandler = useCallback(({target, shiftKey, keyCode}) => {
+    const {textContent, innerHTML} = target;
     onChange({textContent, innerHTML});
-  }, [onChange]);
+    if (!shiftKey && keyCode === 13) onEnterHotKey();
+  }, [onChange, onEnterHotKey]);
 
   useEffect(() => {
     divRef.current.innerHTML = '';
-  }, [isClear])
+  }, [isClear]);
 
   return (
     <>
@@ -20,10 +20,10 @@ export default function FormatTextEditor({label, onChange, isClear}) {
         ref={divRef}
         role="textbox"
         contentEditable
-        className={cx('form-control', styles.editor)}
+        className={cx('form-control perfect-scroll', styles.editor)}
         onKeyUp={keyUpHandler}
         />
-      <label htmlFor="message">{label}</label>
+      <label>{label}</label>
     </>
   )
 }

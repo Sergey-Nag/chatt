@@ -15,8 +15,8 @@ export default function ChatRoute() {
       <Header isAside={sidebarShow} setAside={setSidebarShow} />
       <div className="container" style={{height: 'calc(100vh - 56px)'}}>
         <div className="row h-100">
-          {sidebarShow && <div className="col-3"><Lists /></div>}
-          <div className="col">
+          {sidebarShow && <div className="col-3 h-100"><Lists /></div>}
+          <div className="col h-100">
             <Outlet />
           </div>
         </div>

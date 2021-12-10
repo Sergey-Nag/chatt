@@ -1,11 +1,8 @@
-import React, { useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import AuthContext from "context/auth/authContext";
-import useListenFirebaseData from "hooks/useListenFirebaseData";
-import ListCard from "../ListCard/ListCard";
 import ChatCard from "./ChatCard/ChatCard";
 
 export default function ChatsList() {
-  // const params = useParams();
   const [{ user }] = useContext(AuthContext);
   
   return (

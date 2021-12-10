@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.perfect-scroll::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.perfect-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.3);
+  border-radius: 10px;
+}
+
+.perfect-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,.5);
+}

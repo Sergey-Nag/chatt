@@ -7,13 +7,19 @@ import MessageBox from './MessageBox/MessageBox';
 export default function ChatMessages({messages}) {
   const [{user}] = useContext(AuthContext);
   const [messagesArr, setMessagesArr] = useState([]);
+  const [lastMessage, setLastMessage] = useState(null);
+
   useEffect(() => {
     if (!messages) return;
     setMessagesArr(returnArrayFromObj(messages).map((msg) => new Message(msg)));
   }, [messages]);
-  console.log(messagesArr);
+  
+  useEffect(() => {
+    lastMessage && lastMessage.scrollIntoView({behavior: 'smooth'});
+  }, [lastMessage]);
+
   return (
-    <div className="flex-grow-1 overflow-auto bg-light" style={{height: '74vh'}}>
+    <div className="flex-grow-1 overflow-auto bg-light perfect-scroll">
       {messagesArr && messagesArr.map((/** @type {Message} */msg) => 
         <MessageBox
           key={msg.timestamp}
@@ -21,7 +27,7 @@ export default function ChatMessages({messages}) {
           from={msg.from}
           isUser={msg.from === user.nickname}
           time={msg.timestamp}
-          // setLastMsg={setLastMsg}
+          setLastMsg={setLastMessage}
           />
       )}
       {/* <Message isUser/> */}
