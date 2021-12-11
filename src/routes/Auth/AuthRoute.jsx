@@ -5,6 +5,7 @@ import AuthContext from '../../context/auth/authContext';
 import { authUser } from '../../context/auth/authActions';
 import { getUserObject } from '../../helpers/authData';
 
+
 export default function AuthRoute() {
   const [auth, dispatch] = useContext(AuthContext);
 

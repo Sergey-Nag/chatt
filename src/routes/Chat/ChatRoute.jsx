@@ -4,7 +4,6 @@ import Header from '../../components/Header/Header';
 import Lists from '../../components/Lists/Lists';
 
 export default function ChatRoute() {
-  // const [{user}] = useContext(AuthContext);
   const [sidebarShow, setSidebarShow] = useState(true);
   useEffect(() => {
     document.title = 'Chat';
