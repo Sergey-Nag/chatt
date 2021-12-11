@@ -1,0 +1,36 @@
+name: Build and Deploy to GH-pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+
+      - name: Setup env variables 🔐
+        uses: actions/checkout@v2.3.1
+        env:
+            REACT_APP_FIREBASE_KEY: ${{secrets.REACT_APP_FIREBASE_KEY}}
+            REACT_APP_FIREBASE_DOMAIN: ${{secrets.REACT_APP_FIREBASE_DOMAIN}}
+            REACT_APP_FIREBASE_DATABASE: ${{secrets.REACT_APP_FIREBASE_DATABASE}}
+            REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.REACT_APP_FIREBASE_PROJECT_ID}}
+            REACT_APP_FIREBASE_STORAGE_BUCKET: ${{secrets.REACT_APP_FIREBASE_STORAGE_BUCKET}}
+            REACT_APP_FIREBASE_SENDER_ID: ${{secrets.REACT_APP_FIREBASE_SENDER_ID}}
+            REACT_APP_FIREBASE_APP_ID: ${{secrets.REACT_APP_FIREBASE_APP_ID}}
+
+      - name: Installing ⚙
+        run: |
+          npm install
+
+      - name: Build 🏗
+        run: |
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: build
