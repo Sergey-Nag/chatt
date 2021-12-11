@@ -12,6 +12,8 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
+console.log(firebaseConfig);
+
 const firebaseApp = initializeApp(firebaseConfig);
 const appCheck = initializeAppCheck(firebaseApp, {
   provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_RECAPTCHA_API_KEY),
