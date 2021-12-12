@@ -5,19 +5,14 @@ on:
       - master
 env:
   VAR: I am global
+  VAR2: ${{ secrets.REACT_APP_FIREBASE_KEY }}
   
 jobs:
-  job1:
+  defined-var:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "$VAR"  # "I am global"
-  job2:
+      - run: echo "$VAR"  # v1
+  secrets-var:
     runs-on: ubuntu-latest
-    env:
-      VAR: I am on the job level
     steps:
-      - run: echo "$VAR"  # "I am on the job level"
-      - env:
-          VAR: I am on the step level
-        run: echo "$VAR"  # "I am on the step level"
-      - run: echo "$VAR"  # "I am on the job level"
+      - run: echo "$VAR2"  # v2
