@@ -12,8 +12,6 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 };
 
-localStorage.setItem('data', JSON.stringify({...firebaseConfig, recaptcha: process.env.REACT_APP_FIREBASE_RECAPTCHA_API_KEY}))
-
 const firebaseApp = initializeApp(firebaseConfig);
 const appCheck = initializeAppCheck(firebaseApp, {
   provider: new ReCaptchaV3Provider(process.env.REACT_APP_FIREBASE_RECAPTCHA_API_KEY),
