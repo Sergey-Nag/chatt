@@ -14,18 +14,21 @@ jobs:
         run: |
           npm install
           
-      - name: Build with variables 🏗
+      - name: Setup .env variables ⚙
         run: |
           touch .env
-          echo REACT_APP_FIREBASE_KEY=$FIREBASE_KEY >> .env
-          echo REACT_APP_FIREBASE_DOMAIN="reactchat-15063.firebaseapp.com" >> .env
-          echo REACT_APP_FIREBASE_DATABASE="https://reactchat-15063-default-rtdb.firebaseio.com/" >> .env
-          echo REACT_APP_FIREBASE_PROJECT_ID="reactchat-15063" >> .env
-          echo REACT_APP_FIREBASE_STORAGE_BUCKET="reactchat-15063.appspot.com" >> .env
-          echo REACT_APP_FIREBASE_SENDER_ID=30750907257 >> .env
-          echo REACT_APP_FIREBASE_APP_ID="1:30750907257:web:83477b7c60c1800f42ada8" >> .env
-          echo REACT_APP_FIREBASE_RECAPTCHA_API_KEY="6Ldc6pMdAAAAAIWHMO1f1oY4YqS8A2LtBxaMvqf8" >> .env
+          echo REACT_APP_FIREBASE_KEY=${{ secrets.FIREBASE_APP_ID }} >> .env
+          echo REACT_APP_FIREBASE_DOMAIN=${{ secrets.FIREBASE_DOMAIN }}  >> .env
+          echo REACT_APP_FIREBASE_DATABASE=${{ secrets.FIREBASE_DATABASE }} >> .env
+          echo REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }} >> .env
+          echo REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.FIREBASE_STORAGE_BUCKET }} >> .env
+          echo REACT_APP_FIREBASE_SENDER_ID=${{ secrets.FIREBASE_SENDER_ID }} >> .env
+          echo REACT_APP_FIREBASE_APP_ID=${{ secrets.FIREBASE_APP_ID }} >> .env
+          echo REACT_APP_FIREBASE_RECAPTCHA_API_KEY=${{ secrets.FIREBASE_RECAPTCHA_API_KEY }} >> .env
           cat .env
+          
+      - name: Build 🏗
+        run: |
           npm run build
 
       - name: Deploy 🚀
