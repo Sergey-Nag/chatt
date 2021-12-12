@@ -17,7 +17,7 @@ jobs:
       - name: Setup .env variables ⚙
         run: |
           touch .env
-          echo REACT_APP_FIREBASE_KEY=${{ secrets.FIREBASE_APP_ID }} >> .env
+          echo REACT_APP_FIREBASE_KEY=${{ secrets.FIREBASE_KEY }} >> .env
           echo REACT_APP_FIREBASE_DOMAIN=${{ secrets.FIREBASE_DOMAIN }}  >> .env
           echo REACT_APP_FIREBASE_DATABASE=${{ secrets.FIREBASE_DATABASE }} >> .env
           echo REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }} >> .env
