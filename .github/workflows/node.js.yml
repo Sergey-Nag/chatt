@@ -16,3 +16,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "$VAR2"  # v2
+      - run: echo "${{ secrets.PIDOR }}"  # v2
