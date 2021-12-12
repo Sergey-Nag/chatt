@@ -1,0 +1,23 @@
+name: Build and Deploy to GH-pages
+on:
+  push:
+    branches:
+      - master
+env:
+  VAR: I am global
+  
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "$VAR"  # "I am global"
+  job2:
+    runs-on: ubuntu-latest
+    env:
+      VAR: I am on the job level
+    steps:
+      - run: echo "$VAR"  # "I am on the job level"
+      - env:
+          VAR: I am on the step level
+        run: echo "$VAR"  # "I am on the step level"
+      - run: echo "$VAR"  # "I am on the job level"
