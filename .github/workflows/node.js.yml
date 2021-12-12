@@ -5,7 +5,7 @@ on:
       - master
 env:
   VAR: I am global
-  VAR2: ${{ secrets.REACT_APP_FIREBASE_KEY }}
+  VAR2: ${{ secrets.PIDOR }}
   
 jobs:
   defined-var:
