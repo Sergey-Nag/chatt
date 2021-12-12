@@ -15,7 +15,7 @@ jobs:
           REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
         run: |
             touch .env
-            echo REACT_APP_FIREBASE_KEY=${{ REACT_APP_FIREBASE_KEY }} >> .env
+            echo REACT_APP_FIREBASE_KEY=$REACT_APP_FIREBASE_KEY >> .env
             echo REACT_APP_FIREBASE_DOMAIN="reactchat-15063.firebaseapp.com" >> .env
             echo REACT_APP_FIREBASE_DATABASE="https://reactchat-15063-default-rtdb.firebaseio.com/" >> .env
             echo REACT_APP_FIREBASE_PROJECT_ID="reactchat-15063" >> .env
