@@ -12,8 +12,6 @@ jobs:
 
       - name: Setup env variables 🔐
         shell: bash
-        env:
-          REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
         run: |
             touch .env
             echo REACT_APP_FIREBASE_KEY=$REACT_APP_FIREBASE_KEY >> .env
@@ -25,6 +23,8 @@ jobs:
             echo REACT_APP_FIREBASE_APP_ID="1:30750907257:web:83477b7c60c1800f42ada8" >> .env
             echo REACT_APP_FIREBASE_RECAPTCHA_API_KEY="6Ldc6pMdAAAAAIWHMO1f1oY4YqS8A2LtBxaMvqf8" >> .env
             cat .env
+        env:
+          REACT_APP_FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
 
       - name: Installing ⚙
         run: |
