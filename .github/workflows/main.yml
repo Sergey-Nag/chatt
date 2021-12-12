@@ -29,6 +29,12 @@ jobs:
           npm run build
         env:
           FIREBASE_KEY: ${{ secrets.REACT_APP_FIREBASE_KEY }}
+        
+      - name: Test vars
+        run: |
+          echo "${{ env.FIREBASE_KEY }}"
+          echo ${{ env.FIREBASE_KEY }}
+          echo $FIREBASE_KEY
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
