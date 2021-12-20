@@ -10,6 +10,8 @@ export default function ChatLayout() {
   const [chat] = useListenFirebaseData(`chatsMessages/${chatId}`, {
     limit: 50
   });
+
+  
   
   return (
     <div className={styles.wrapp}>
